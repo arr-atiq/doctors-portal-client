@@ -18,7 +18,7 @@ const BookingDetails = ({bookData, date}) => {
                     <h6 className="text-white">{bookData.visitingHour}</h6>
                     <p className="text-white">Total Space are available: {bookData.totalSpace}</p>
                     <button onClick={openModal} className="btn btn-primary">Book Appointment</button>
-                    <BookModal modalIsOpen={modalIsOpen} closeModal={closeModal} date={date} bookData={bookData}></BookModal>
+                    <BookModal modalIsOpen={modalIsOpen} closeModal={closeModal} date={date} appointmentOn={bookData.subject}></BookModal>
                 </div>
             </div>
         </div>

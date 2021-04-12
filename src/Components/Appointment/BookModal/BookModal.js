@@ -15,11 +15,26 @@ const customStyles = {
 };
 Modal.setAppElement('#root');
 
-const BookModal = ({ modalIsOpen, closeModal, bookData, date }) => {
+const BookModal = ({ modalIsOpen, closeModal, appointmentOn, date }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        console.log(data);
+        data.service = appointmentOn;
+        data.date = date;
+        data.presentDate = new Date();
+        
+        fetch('http://localhost:5000/addAppointment', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(success =>{
+            if(success){
+                closeModal();
+                alert('Appointment Created Successfully!');
+            }
+        })
     }
     return (
         <div>
@@ -30,7 +45,7 @@ const BookModal = ({ modalIsOpen, closeModal, bookData, date }) => {
             >
 
                 <div className="text-center">
-                    <h2>{bookData.subject}</h2>
+                    <h2>{appointmentOn}</h2>
                     <p>Booking on {date.toDateString()}</p>
                 </div>
 
